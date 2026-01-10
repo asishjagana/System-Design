@@ -7,31 +7,20 @@ Imagine a high-traffic website like **Amazon** during a Black Friday sale. Milli
 - Without a load balancer, a single server would crash under the load.
 - With a load balancer (like AWS ELB or Nginx), incoming requests are distributed across hundreds of server instances. If one server goes down, the load balancer redirects traffic to the remaining healthy servers.
 
-## Types of Load Balancing Algorithms
-1. **Round Robin**: Requests are distributed sequentially.
-2. **Least Connections**: Sends traffic to the server with the fewest active connections.
-3. **IP Hash**: The client's IP address determines which server receives the request.
+## Advanced Concepts
+### 1. Layer 4 vs Layer 7 Load Balancing
+- **Layer 4 (Transport Layer)**: Works at the TCP/UDP level. It makes routing decisions based on IP address and port. It's extremely fast because it doesn't look at the packet content.
+- **Layer 7 (Application Layer)**: Works at the HTTP level. It can route traffic based on URL, Headers, or Cookies (Sticky Sessions). It's more CPU-intensive but much smarter.
 
-## Example: Nginx Load Balancer Configuration
+### 2. Global Server Load Balancing (GSLB)
+Distributes traffic across multiple data centers in different geographic regions. If a whole data center in Virginia fails, GSLB sends traffic to the California data center.
 
-```nginx
-http {
-    upstream my_app {
-        # Round Robin is default
-        server server1.example.com;
-        server server2.example.com;
-        server server3.example.com;
-    }
-
-    server {
-        listen 80;
-
-        location / {
-            proxy_pass http://my_app;
-        }
-    }
-}
-```
+## Pros and Cons
+| Pros | Cons |
+| :--- | :--- |
+| **High Availability**: Automatically detects and bypasses failed servers. | **Single Point of Failure**: If the Load Balancer itself goes down, the system is inaccessible (Solution: use High Availability LB pairs). |
+| **Security**: Can act as a barrier against DDoS attacks. | **Complexity**: Adds another layer of configuration and maintenance. |
+| **SSL Offloading**: The LB can handle SSL encryption/decryption, freeing up resources on the app servers. | **Latency**: Adds a tiny bit of latency to every request. |
 
 ## Key Benefits
 - **Scalability**: Add or remove servers seamlessly.

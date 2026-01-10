@@ -51,6 +51,24 @@ public class CacheService
 }
 ```
 
+## Advanced Concepts
+### 1. Cache Eviction Policies
+When the cache is full, how do we decide what to delete?
+- **LRU (Least Recently Used)**: Discard the least recently accessed items first.
+- **LFU (Least Frequently Used)**: Discard items that are used the least often.
+- **FIFO (First In First Out)**: Traditional queue-based eviction.
+
+### 2. Thundering Herd Problem
+When a hot cache key expires, many concurrent requests hit the DB at once.
+- **Solution**: Use **Mutual Exclusion (Locking)** so only one request updates the cache while others wait.
+
+## Pros and Cons
+| Pros | Cons |
+| :--- | :--- |
+| **Latency Reduction**: Drastically improves response times for "hot" data. | **Data Stale-ness**: High risk of serving old data if not managed correctly. |
+| **Increased Throughput**: One single cache node can serve thousands of requests per second that would crush a DB. | **Cost**: RAM (used for caching) is much more expensive than disk storage. |
+| **Cost Savings**: Reduces the expensive "Read Units" billed by Cloud Databases. | **Complexity**: Managing cache invalidation is famously one of the hardest problems in CS. |
+
 ## Key Benefits
 - Reduces Latency.
 - Decreases Database Load.

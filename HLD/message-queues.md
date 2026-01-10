@@ -38,6 +38,21 @@ public class MessageProducer
 }
 ```
 
+## Advanced Concepts
+### 1. At-least-once vs. Exactly-once Delivery
+- **At-least-once**: Message might be delivered multiple times (Consumer must be **Idempotent**).
+- **Exactly-once**: Hardest to achieve; ensures each message is processed only once (requires complex coordination like Kafka's Transactional API).
+
+### 2. Dead Letter Queues (DLQ)
+If a message fails to be processed after multiple retries, it's moved to a **DLQ**. This prevents the main queue from being blocked by a "poison" message.
+
+## Pros and Cons
+| Pros | Cons |
+| :--- | :--- |
+| **Asynchronous**: Improves user-perceived speed by deferring heavy work. | **Eventual Consistency**: Data might not be updated immediately everywhere. |
+| **Traffic Spiking**: Acts as a buffer during high traffic loads. | **Operational overhead**: Another system to monitor and maintain. |
+| **Retry Logic**: Built-in support for retrying failed operations. | **Message Ordering**: Hard to maintain strict order in distributed queues. |
+
 ## Key Benefits
 - **Decoupling**: Services don't need to know about each other.
 - **Scalability**: You can add more consumers to handle high volume.
