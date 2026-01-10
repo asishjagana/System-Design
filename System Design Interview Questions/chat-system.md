@@ -29,7 +29,24 @@ Designing a real-time messaging system like WhatsApp.
 4. If online, **Chat Server** pushes message to **User B** via their WebSocket.
 5. If offline, **Push Notification Service** triggers a mobile notification.
 
-## 5. Real-Time Use Case
+## Advanced Concepts
+### 1. Message Storage Strategy
+- **Hot Data (Recent Messages)**: Store in an in-memory database like Redis or a high-performance NoSQL like Cassandra sharded by `ChatId`.
+- **Cold Data (Archived Messages)**: Move to cheaper storage like S3 or HDFS.
+
+### 2. Synchronization across Devices
+If a user is logged into both Phone and Laptop:
+- When they send a message from Phone, the Laptop needs to receive a sync update.
+- We use a **Sequence ID** for each message in a chat to detect gaps and ensure the UI shows everything in order.
+
+## Pros and Cons
+| Pros | Cons |
+| :--- | :--- |
+| **Real-time Experience**: WebSockets provide sub-second delivery. | **Persistent Connections**: Maintaining millions of open WebSockets is memory intensive for servers. |
+| **High Reliability**: Messages are persisted before delivery, ensuring no data loss. | **Complex State Management**: Handling "Online/Offline" status accurately across a global cluster is hard. |
+| **Rich Media Support**: CDNs make sharing photos and videos seamless. | **Security**: End-to-end encryption (E2EE) makes server-side search and analytics impossible. |
+
+## Real-Time Use Case
 **WhatsApp, Slack, Discord**. All use WebSockets or MQTT for efficiency.
 
 ## 6. Code Concept (WebSocket Client - JS)

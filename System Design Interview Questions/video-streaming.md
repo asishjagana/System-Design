@@ -21,9 +21,18 @@ How to design a scalable video streaming platform.
 5. **CDN Propagation**: Files are pushed/pulled to edge locations (Akamai, CloudFront).
 6. **Playback**: Users request the "Manifest File" (M3U8) which tells the player where to fetch segments based on network speed.
 
-## 4. Real-Time Use Case
-**Netflix**: They use Open Connect (their own CDN) and host their infrastructure on AWS. They use an adaptive bitrate algorithm to change video quality during playback if your internet dips.
+## Advanced Concept: Dynamic Adaptive Streaming over HTTP (DASH / HLS)
+The video is broken into 2-5 second segments. The player fetches the next segment based on current bandwidth.
+- If speed drops, player fetches "Low Quality" segments.
+- if speed is high, it fetches "4K" segments.
+This is why Netflix quality might look blurry for a few seconds when you start, then becomes crisp.
 
-## 5. Key Design Point: Throughput vs Storage
-- **Storage** is cheap; **Throughput** (bandwidth) is expensive.
-- CDNs are the most critical part of the design to ensure users in India don't experience lag for a video hosted in the USA.
+## Pros and Cons
+| Pros | Cons |
+| :--- | :--- |
+| **Global Reach**: CDNs ensure users anywhere can watch without lag. | **Storage Costs**: Storing a single movie in 10 different resolutions and formats takes a lot of space. |
+| **Resilience**: If one CDN node fails, the player automatically fails over to another. | **Transcoding Time**: Processing a 4K movie takes significant compute time and power. |
+| **Smooth Playback**: Adaptive bitrate prevents constant "Buffering" wheels. | |
+
+## Real-Time Use Case
+**Netflix**: They use Open Connect (their own CDN) and host their infrastructure on AWS. They use an adaptive bitrate algorithm to change video quality during playback if your internet dips.

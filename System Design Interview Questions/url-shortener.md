@@ -36,7 +36,7 @@ How to generate `8d2g3k`?
 4. **Database** stores the mapping.
 5. **Cache** (Redis) stores frequently accessed mappings for fast redirection.
 
-## 6.## Advanced Concept: Key Generation Service (KGS)
+## Advanced Concept: Key Generation Service (KGS)
 Instead of calculating the short code during the request (which can cause DB collisions or ID generation lag), have a separate microservice (KGS) that pre-generates millions of unique short keys and stores them in a "Key DB".
 - When a user wants a short URL, the App Server just grabs an already-generated key from the KGS. This is extremely fast and prevents collisions.
 
