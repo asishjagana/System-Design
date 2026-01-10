@@ -56,6 +56,22 @@ public class Level {
 }
 ```
 
-## Considerations
-- **Concurrency**: What if two cars try to park in the same spot at the exact same millisecond? (Use locks/semaphores).
-- **Payment**: Integrating a payment service.
+## Advanced Considerations
+### 1. Concurrency Control
+In a real system, multiple entry/exit points are checking for free spots simultaneously.
+- **Optimistic Locking**: Check spot status, try to assign, and if someone else beat you to it (version mismatch), retry.
+- **Pessimistic Locking**: `lock` the database row for the spot while the transaction is active.
+
+### 2. Strategy Pattern for Pricing
+Fees vary by vehicle type and time spent. Use the **Strategy Pattern** to swap `FlatRatePricing`, `HourlyPricing`, or `EarlyBirdPricing` without changing the `Ticket` logic.
+
+## Pros and Cons of this Design
+| Pros | Cons |
+| :--- | :--- |
+| **Modularity**: Easy to add new vehicle types or floor layouts. | **Complexity**: Handling all edge cases (lost tickets, broken gates) makes the code messy. |
+| **Scalability**: Can be extended to manage multiple parking lots via a central service. | **Over-engineering**: For a small personal lot, a simple list of booleans might suffice. |
+| **Thread Safety**: Clean separation of concerns allows for easier locking strategies. | |
+
+## Key Benefits
+- **Separation of Concerns**: Each class has a clear, minimal role.
+- **Extensibility**: Adding a "VIP Spot" or an "Electric Charging Station" is trivial.

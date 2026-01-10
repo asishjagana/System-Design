@@ -46,3 +46,16 @@ public class PdfPrinter : IPrinter {
     }
 }
 ```
+
+## Summary of Pros and Cons
+
+| Principle | Pros | Cons |
+| :--- | :--- | :--- |
+| **SRP** | High cohesion, easier to test and modify. | Can lead to a very large number of small classes. |
+| **OCP** | Extremely flexible for future updates without breaking existing code. | Requires careful planning and extensive use of interfaces. |
+| **LSP** | Guarantees reliability when using polymorphism. | Can be restrictive when subclasses have very different behavior. |
+| **ISP** | Reduces coupling and prevents clients from knowing about methods they don't use. | Might lead to many small, fragmented interfaces. |
+| **DIP** | High degree of decoupling; easy to swap implementations (e.g., swapping SQL for Mongo). | Increases complexity due to Dependency Injection setup. |
+
+## Advanced Concept: Composition Over Inheritance
+While not a formal SOLID letter, it's the underlying philosophy. Instead of building deep inheritance trees (which often violate LSP and OCP), favor combining small, single-purpose classes (SRP) to achieve complex behavior.

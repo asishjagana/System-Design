@@ -36,5 +36,16 @@ How to generate `8d2g3k`?
 4. **Database** stores the mapping.
 5. **Cache** (Redis) stores frequently accessed mappings for fast redirection.
 
-## 6. Real-Time Use Case
+## 6.## Advanced Concept: Key Generation Service (KGS)
+Instead of calculating the short code during the request (which can cause DB collisions or ID generation lag), have a separate microservice (KGS) that pre-generates millions of unique short keys and stores them in a "Key DB".
+- When a user wants a short URL, the App Server just grabs an already-generated key from the KGS. This is extremely fast and prevents collisions.
+
+## Pros and Cons of this Architecture
+| Pros | Cons |
+| :--- | :--- |
+| **High Performance**: Redirects are essentially $O(1)$ dictionary lookups in Redis. | **Single Point of Failure**: If the KGS or Mapping DB goes down, the whole service fails. |
+| **Scalable Storage**: Since mappings are independent, we can easily shard the DB by `ShortURL`. | **Link Persistence**: If the DB is lost, billions of links across the web become "404 Not Found". |
+| **Easy Analytics**: We can track who clicked, when, and from where. | |
+
+## Real-Time Use Case
 **Bit.ly** or **Twitter (t.co)** uses this to save space in posts and track click analytics.
