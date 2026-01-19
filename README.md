@@ -35,6 +35,10 @@ In-depth architecture for popular consumer-scale systems.
 - [Distributed ID Generator (Snowflake)](./System%20Design%20Interview%20Questions/distributed-id-generator.md)
 - [Autocomplete System](./System%20Design%20Interview%20Questions/autocomplete-system.md)
 - [News Feed System](./System%20Design%20Interview%20Questions/news-feed-system.md)
+- [Web Crawler](./System%20Design%20Interview%20Questions/web-crawler.md)
+- [Proximity Service (Yelp/Maps)](./System%20Design%20Interview%20Questions/proximity-service.md)
+- [Ticket Booking System (Ticketmaster)](./System%20Design%20Interview%20Questions/ticket-booking-system.md)
+- [Distributed Cache (Redis internals)](./System%20Design%20Interview%20Questions/distributed-cache.md)
 
 ---
 *Created with ❤️ for System Design enthusiasts.*
