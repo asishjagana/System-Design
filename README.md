@@ -40,5 +40,14 @@ In-depth architecture for popular consumer-scale systems.
 - [Ticket Booking System (Ticketmaster)](./System%20Design%20Interview%20Questions/ticket-booking-system.md)
 - [Distributed Cache (Redis internals)](./System%20Design%20Interview%20Questions/distributed-cache.md)
 
+## 🎖️ Software Development Best Practices
+Must-follow concepts for building high-quality software.
+- [DRY vs. WET](./Best%20Practices/dry-wet.md) - Duplication vs. Abstraction.
+- [KISS and YAGNI](./Best%20Practices/kiss-yagni.md) - Simplicity and focus.
+- [TDD (Test Driven Development)](./Best%20Practices/tdd.md) - Red-Green-Refactor.
+- [CI/CD](./Best%20Practices/ci-cd.md) - Pipeline automation.
+- [Clean Code](./Best%20Practices/clean-code.md) - Writing for humans.
+- [12-Factor App](./Best%20Practices/12-factor-app.md) - Modern SaaS principles.
+
 ---
 *Created with ❤️ for System Design enthusiasts.*
