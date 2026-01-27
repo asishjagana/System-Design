@@ -49,5 +49,9 @@ Must-follow concepts for building high-quality software.
 - [Clean Code](./Best%20Practices/clean-code.md) - Writing for humans.
 - [12-Factor App](./Best%20Practices/12-factor-app.md) - Modern SaaS principles.
 
+## 📡 Communication Patterns
+Patterns for exchanging data between client and server.
+- [Polling](./Communication%20Patterns/polling.md) - Periodic status tracking.
+
 ---
 *Created with ❤️ for System Design enthusiasts.*
