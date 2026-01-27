@@ -11,6 +11,7 @@ Core architectural components for scalable distributed systems.
 - [Microservices](./HLD/microservices.md) - Building independent, deployable services.
 - [Replication & Consistency](./HLD/replication-consistency.md) - CAP theorem and data synchronization.
 - [CAP Theorem](./HLD/cap-theorem.md) - The fundamental trade-off in distributed systems.
+- [Master-Slave Architecture](./HLD/master-slave-architecture.md) - Scaling reads and handling failovers.
 - [CDN (Content Delivery Network)](./HLD/cdn.md) - Serving content from the edge.
 - [Circuit Breaker](./HLD/circuit-breaker.md) - Handling cascading failures.
 - [Service Discovery](./HLD/service-discovery.md) - Finding dynamic services.
