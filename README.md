@@ -10,6 +10,7 @@ Core architectural components for scalable distributed systems.
 - [Database Sharding](./HLD/database-sharding.md) - Horizontal scaling of databases.
 - [Microservices](./HLD/microservices.md) - Building independent, deployable services.
 - [Replication & Consistency](./HLD/replication-consistency.md) - CAP theorem and data synchronization.
+- [CAP Theorem](./HLD/cap-theorem.md) - The fundamental trade-off in distributed systems.
 - [CDN (Content Delivery Network)](./HLD/cdn.md) - Serving content from the edge.
 - [Circuit Breaker](./HLD/circuit-breaker.md) - Handling cascading failures.
 - [Service Discovery](./HLD/service-discovery.md) - Finding dynamic services.
