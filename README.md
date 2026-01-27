@@ -54,6 +54,7 @@ Patterns for exchanging data between client and server.
 - [Polling](./Communication%20Patterns/polling.md) - Periodic status tracking.
 - [WebSockets](./Communication%20Patterns/websockets.md) - Full-duplex real-time communication.
 - [Webhooks](./Communication%20Patterns/webhooks.md) - "Push" model events.
+- [SSE (Server-Sent Events)](./Communication%20Patterns/sse.md) - Unidirectional server push.
 
 ---
 *Created with ❤️ for System Design enthusiasts.*
