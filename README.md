@@ -53,6 +53,7 @@ Must-follow concepts for building high-quality software.
 Patterns for exchanging data between client and server.
 - [Polling](./Communication%20Patterns/polling.md) - Periodic status tracking.
 - [WebSockets](./Communication%20Patterns/websockets.md) - Full-duplex real-time communication.
+- [Webhooks](./Communication%20Patterns/webhooks.md) - "Push" model events.
 
 ---
 *Created with ❤️ for System Design enthusiasts.*
