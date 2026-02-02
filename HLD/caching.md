@@ -9,13 +9,15 @@ Caching is one of the most fundamental concepts in computer science. It is the p
 2. [Why We Cache (Problems Solved)](#2-why-we-cache-problems-solved)
 3. [Caching Layers in Modern Systems](#3-caching-layers-in-modern-systems)
 4. [General Caching Strategies & Eviction](#4-general-caching-strategies--eviction)
-5. [Case Study: The Domain Name System (DNS)](#5-case-study-the-domain-name-system-dns)
-6. [Public vs. Private IP Addresses](#6-public-vs-private-ip-addresses)
-7. [DNS as a Distributed Caching System](#7-dns-as-a-distributed-caching-system)
-8. [Conceptual Aids (Analogies)](#8-conceptual-ids-analogies)
-9. [Common Pitfalls & Mistakes](#9-common-pitfalls--mistakes)
-10. [Testing & Troubleshooting](#10-testing--troubleshooting)
-11. [Learning Path & Resources](#11-learning-path--resources)
+5. [Advanced Application Caching (Redis & Strategies)](#12-advanced-application-caching-redis--strategies)
+6. [Caching Granularity (Query vs Object level)](#13-caching-granularity-query-vs-object-level)
+7. [Case Study: The Domain Name System (DNS)](#5-case-study-the-domain-name-system-dns)
+8. [Public vs. Private IP Addresses](#6-public-vs-private-ip-addresses)
+9. [DNS as a Distributed Caching System](#7-dns-as-a-distributed-caching-system)
+10. [Conceptual Aids (Analogies)](#8-conceptual-ids-analogies)
+11. [Common Pitfalls & Mistakes](#9-common-pitfalls--mistakes)
+12. [Testing & Troubleshooting](#10-testing--troubleshooting)
+13. [Learning Path & Resources](#11-learning-path--resources)
 
 ---
 
@@ -188,4 +190,67 @@ Run `dig google.com` multiple times. You will see the `ANSWER SECTION` time valu
 
 ---
 > [!TIP]
-> **Best Practice**: Always set a reasonable "Default TTL" (e.g., 1 hour). Never set it to infinite, and avoid sub-minute TTLs unless you are doing active traffic management.
+
+---
+
+## 12. Advanced Application Caching (Redis & Strategies)
+In-memory caches such as **Memcached** and **Redis** are key-value stores between your application and your data storage. Since data is held in RAM, it is much faster than typical databases where data is stored on disk.
+
+### Redis: Beyond Simple Caching
+Redis is more than just a key-value store. It provides:
+- **Persistence Options**: Can save data to disk while keeping it in RAM.
+- **Built-in Data Structures**: Sorted sets (for leaderboards), Lists (for queues), and Bitmaps.
+
+---
+
+## 13. Caching Granularity (Query vs Object level)
+
+### A. Database Query Level Caching
+Whenever you query the database, hash the query as a key and store the result.
+- **Problem**: Hard to invalidate. If one row in a table changes, you might need to delete all cached queries that referenced that table.
+
+### B. Object Level Caching (Recommended)
+See your data as an object (e.g., a User instance). Assemble the data into a class or structure.
+- **Async Processing**: Workers can assemble objects by consuming the latest cached data.
+- **Easier Invalidation**: Remove the specific object if its underlying data changes.
+
+**What to cache?**: User sessions, fully rendered web pages, activity streams, and user graph data.
+
+---
+
+## 14. Detailed Write Strategies
+
+### 1. Cache-Aside (Lazy Loading)
+The application is responsible for reading and writing from storage. The cache does not interact with the database directly.
+
+```python
+# Pseudo-code example
+def get_user(user_id):
+    user = cache.get(f"user.{user_id}")
+    if user is None:
+        user = db.query("SELECT * FROM users WHERE id = %s", user_id)
+        if user is not None:
+            cache.set(f"user.{user_id}", json.dumps(user))
+    return user
+```
+- **Disadvantage**: Noticeable delay on cache miss (3 trips); data staleness risk.
+
+### 2. Write-Through
+The application uses the cache as the main data store. The cache synchronously writes to the database.
+- **Pros**: Data in cache is never stale.
+- **Cons**: Slow overall write operation.
+
+### 3. Write-Behind (Write-Back)
+The application updates the cache and the cache **asynchronously** writes to the data store.
+- **Pros**: Extremely fast write performance.
+- **Cons**: Risk of data loss if the cache node fails before the write hits the DB.
+
+### 4. Refresh-Ahead
+The cache automatically refreshes recently accessed entries BEFORE they expire.
+- **Pros**: Reduced latency if predictions are accurate.
+- **Cons**: Poor predictions result in wasted performance and resources.
+
+---
+
+> [!CAUTION]
+> **Fundamental Challenge**: Caching always introduces the problem of **Consistency**. Maintaining synchronization between the source of truth (DB) and the cache is a design complexity that must be weighed against performance gains.
