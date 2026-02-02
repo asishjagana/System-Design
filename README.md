@@ -15,6 +15,7 @@ Core architectural components for scalable distributed systems.
 - [CDN (Content Delivery Network)](./HLD/cdn.md) - Serving content from the edge.
 - [Circuit Breaker](./HLD/circuit-breaker.md) - Handling cascading failures.
 - [Service Discovery](./HLD/service-discovery.md) - Finding dynamic services.
+- [Reverse Proxy](./HLD/reverse-proxy.md) - Security, SSL termination, and caching.
 
 ## 🛠️ Low-Level Design (LLD)
 Principles and patterns for writing clean, maintainable, and efficient code.
