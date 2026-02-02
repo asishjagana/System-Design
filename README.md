@@ -42,6 +42,7 @@ In-depth architecture for popular consumer-scale systems.
 - [Ticket Booking System (Ticketmaster)](./System%20Design%20Interview%20Questions/ticket-booking-system.md)
 - [Distributed Cache (Redis internals)](./System%20Design%20Interview%20Questions/distributed-cache.md)
 - [Instagram System Design](./System%20Design%20Interview%20Questions/instagram-design.md)
+- [Uber System Design](./System%20Design%20Interview%20Questions/uber-design.md)
 
 ## 🎖️ Software Development Best Practices
 Must-follow concepts for building high-quality software.
